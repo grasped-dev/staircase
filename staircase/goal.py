@@ -52,9 +52,9 @@ def check_skill(phrase: str, description: str, allowed_codes: set[str]) -> tuple
         return False, f"adds numbers the standard does not contain: {sorted(nums_new)}"
     if re.search(r"\b(he|she|his|her|him)\b", p, re.I):
         return False, "uses a gendered pronoun; the goal says [Student]"
-    words = re.findall(r"\b[A-Z][a-z]+\b", p)
     desc_words = set(re.findall(r"\b[A-Z][a-z]+\b", description))
-    stray = [w for w in words[1:] if w not in desc_words]
+    # A capital at the very start of the phrase is just the start; any other must come from the standard.
+    stray = [m.group() for m in re.finditer(r"\b[A-Z][a-z]+\b", p) if m.start() > 0 and m.group() not in desc_words]
     if stray:
         return False, f"capitalised words not in the standard (possible names): {stray}"
     return True, "ok"
