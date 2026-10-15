@@ -43,9 +43,12 @@ function fillSubareas(sel) {
     "</optgroup>").join("");
 }
 function fillStudents() {
+  const keep = $("student").value, keepRecall = $("recall-student").value;
   const opts = state.students.map((s) => `<option value="${esc(s.sid)}">${esc(s.sid)} (grade ${esc(s.grade)})</option>`).join("");
   $("student").innerHTML = `<option value="">No student (explore only)</option>` + opts;
   $("recall-student").innerHTML = opts;
+  if (keep) $("student").value = keep;
+  if (keepRecall) $("recall-student").value = keepRecall;
 }
 
 async function loadStudents() {
@@ -150,8 +153,13 @@ function renderStair(r, canCheck) {
   $("climb-note").textContent = d.climb_note || (canCheck ? "" : "Pick a student to record what is mastered.");
   $("widen").disabled = state.depth >= 3;
   $("stair").querySelectorAll("input[type=checkbox]").forEach((cb) => cb.addEventListener("change", async () => {
-    await api("/api/mastery", { sid: $("student").value, standards: [cb.dataset.id], mastered: cb.checked });
-    cb.closest(".st").classList.toggle("done", cb.checked);
+    try {
+      await api("/api/mastery", { sid: $("student").value, standards: [cb.dataset.id], mastered: cb.checked });
+      cb.closest(".st").classList.toggle("done", cb.checked);
+    } catch (e) {
+      cb.checked = !cb.checked;
+      $("climb-note").textContent = "Not recorded: " + e.message;
+    }
     loadStudents();
   }));
 }
