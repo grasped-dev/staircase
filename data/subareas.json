@@ -1,0 +1,24 @@
+{
+  "_note": "Which standards belong to each goal sub-area. ELA rows name a strand prefix and, optionally, the standard numbers inside it. Math rows name a domain code. Grades are the range where the strand exists in the maps.",
+  "subareas": [
+    {"key": "phonological", "area": "reading", "label": "Phonological awareness", "subject": "ela", "strands": [{"code": "RF", "numbers": [2]}], "minGrade": "K", "maxGrade": "1"},
+    {"key": "phonics", "area": "reading", "label": "Phonics and decoding", "subject": "ela", "strands": [{"code": "RF", "numbers": [3]}], "minGrade": "K", "maxGrade": "5"},
+    {"key": "fluency", "area": "reading", "label": "Fluency", "subject": "ela", "strands": [{"code": "RF", "numbers": [4]}], "minGrade": "K", "maxGrade": "5"},
+    {"key": "comp-lit", "area": "reading", "label": "Comprehension: literature", "subject": "ela", "strands": [{"code": "RL"}], "minGrade": "K", "maxGrade": "8"},
+    {"key": "comp-info", "area": "reading", "label": "Comprehension: informational", "subject": "ela", "strands": [{"code": "RI"}], "minGrade": "K", "maxGrade": "8"},
+    {"key": "vocabulary", "area": "reading", "label": "Vocabulary", "subject": "ela", "strands": [{"code": "L", "numbers": [4, 5, 6]}], "minGrade": "K", "maxGrade": "8"},
+    {"key": "conventions", "area": "writing", "label": "Conventions", "subject": "ela", "strands": [{"code": "L", "numbers": [1, 2]}], "minGrade": "K", "maxGrade": "8"},
+    {"key": "composition", "area": "writing", "label": "Composition", "subject": "ela", "strands": [{"code": "W"}], "minGrade": "K", "maxGrade": "8"},
+    {"key": "CC", "area": "math", "label": "Counting and cardinality", "subject": "math", "strands": [{"code": "CC"}], "minGrade": "K", "maxGrade": "K"},
+    {"key": "OA", "area": "math", "label": "Operations and algebraic thinking", "subject": "math", "strands": [{"code": "OA"}], "minGrade": "K", "maxGrade": "5"},
+    {"key": "NBT", "area": "math", "label": "Number and operations in base ten", "subject": "math", "strands": [{"code": "NBT"}], "minGrade": "K", "maxGrade": "5"},
+    {"key": "NF", "area": "math", "label": "Fractions", "subject": "math", "strands": [{"code": "NF"}], "minGrade": "3", "maxGrade": "5"},
+    {"key": "MD", "area": "math", "label": "Measurement and data", "subject": "math", "strands": [{"code": "MD"}], "minGrade": "K", "maxGrade": "5"},
+    {"key": "G", "area": "math", "label": "Geometry", "subject": "math", "strands": [{"code": "G"}], "minGrade": "K", "maxGrade": "8"},
+    {"key": "RP", "area": "math", "label": "Ratios and proportional relationships", "subject": "math", "strands": [{"code": "RP"}], "minGrade": "6", "maxGrade": "7"},
+    {"key": "NS", "area": "math", "label": "The number system", "subject": "math", "strands": [{"code": "NS"}], "minGrade": "6", "maxGrade": "8"},
+    {"key": "EE", "area": "math", "label": "Expressions and equations", "subject": "math", "strands": [{"code": "EE"}], "minGrade": "6", "maxGrade": "8"},
+    {"key": "SP", "area": "math", "label": "Statistics and probability", "subject": "math", "strands": [{"code": "SP"}], "minGrade": "6", "maxGrade": "8"},
+    {"key": "F", "area": "math", "label": "Functions", "subject": "math", "strands": [{"code": "F"}], "minGrade": "8", "maxGrade": "8"}
+  ]
+}
