@@ -103,7 +103,9 @@ code, .id { font-family: var(--mono); font-size: 13px; }
 .o-unknown { color: var(--bad); }
 .path { font-family: var(--mono); font-size: 13px; margin-top: 6px; }
 
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+th:nth-child(1) { width: 26%; } th:nth-child(2) { width: 30%; } th:nth-child(3) { width: 28%; } th:nth-child(4), th:nth-child(5) { width: 8%; }
+td .outcome { white-space: normal; word-break: break-word; }
 th, td { text-align: left; padding: 5px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
 td.args { font-family: var(--mono); font-size: 11px; word-break: break-word; color: var(--muted); }
 
