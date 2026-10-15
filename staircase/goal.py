@@ -167,9 +167,15 @@ def draft_goal(tools: Tools, baseline: str, student_grade: str, sid: str | None 
     objectives_src = _spread(todo, 3)
 
     path_ids = {b["id"] for b in d["below"]} | {c["id"] for c in climb} | {base["id"]} | {o["id"] for o in todo}
-    log: list = []
-    goal_skill = skill_for(goal_node, path_ids, log)
-    base_skill = skill_for({**base}, path_ids, log)
+    # The two model calls are independent, so they run side by side.
+    from concurrent.futures import ThreadPoolExecutor
+
+    logs: tuple[list, list] = ([], [])
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        f_goal = pool.submit(skill_for, goal_node, path_ids, logs[0])
+        f_base = pool.submit(skill_for, {**base}, path_ids, logs[1])
+        goal_skill, base_skill = f_goal.result(), f_base.result()
+    log = logs[0] + logs[1]
 
     draft = {
         "baseline": {

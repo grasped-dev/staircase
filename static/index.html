@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staircase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Open+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1>Staircase</h1>
+    <p>IEP goals reasoned over a graph of the standards. Every answer shows the path it walked.</p>
+  </div>
+  <div class="privacy" id="privacy" title="Checked against the graph on load">
+    The graph holds a student ID, a grade, and the standards marked mastered. Nothing else.
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="plan" role="tab">Plan a goal</button>
+  <button class="tab" data-tab="caseload" role="tab">Caseload</button>
+  <button class="tab" data-tab="ask" role="tab">Ask</button>
+</nav>
+
+<main>
+  <!-- PLAN -->
+  <section id="plan" class="panel active">
+    <div class="steps">
+      <div class="card step" id="step-student">
+        <h2><span class="n">1</span> Student</h2>
+        <label>Student
+          <select id="student"></select>
+        </label>
+        <details class="add">
+          <summary>Add a student by ID</summary>
+          <div class="row">
+            <input id="new-sid" placeholder="Local ID or SSID, e.g. 147163" autocomplete="off">
+            <select id="new-grade"></select>
+            <button id="add-student">Add</button>
+          </div>
+          <p class="hint">IDs only. A name is refused before anything is written.</p>
+          <p class="error" id="add-error"></p>
+        </details>
+      </div>
+
+      <div class="card step" id="step-area">
+        <h2><span class="n">2</span> Area and level</h2>
+        <div class="row">
+          <label>Grade <select id="grade"></select></label>
+          <label>Sub-area <select id="subarea"></select></label>
+          <label>Years behind <input id="years" type="number" min="0" max="8" value="2"></label>
+        </div>
+        <button id="show-baseline" class="primary">Show baseline standards</button>
+      </div>
+    </div>
+
+    <div class="card" id="baseline-card" hidden>
+      <h2><span class="n">3</span> Pick the standard to work from</h2>
+      <p class="note" id="baseline-note"></p>
+      <p class="hint">Ranked by leverage: how many later standards build on each one.</p>
+      <ol id="baseline-list" class="options"></ol>
+    </div>
+
+    <div class="card" id="stair-card" hidden>
+      <h2><span class="n">4</span> The staircase</h2>
+      <p class="hint">Check what the student can already do. Checked steps are crossed out; the rest become objectives.</p>
+      <div id="stair" class="stair"></div>
+      <p class="note" id="climb-note"></p>
+      <div class="row">
+        <button id="widen">Show one more step below</button>
+        <button id="draft" class="primary">Draft the goal</button>
+      </div>
+    </div>
+
+    <div class="card" id="goal-card" hidden>
+      <h2><span class="n">5</span> Goal draft</h2>
+      <p class="note" id="goal-note"></p>
+      <div class="cards" id="goal-cards"></div>
+      <div class="row">
+        <button id="save-goal" class="primary">Save to this student</button>
+        <span id="saved" class="ok"></span>
+      </div>
+      <details class="checks"><summary>How each sentence was checked</summary><ul id="checks"></ul></details>
+    </div>
+  </section>
+
+  <!-- CASELOAD -->
+  <section id="caseload" class="panel">
+    <div class="card">
+      <h2>Who can be taught together</h2>
+      <p class="hint">Students whose next step is the same standard: every recorded step below it is mastered, and it is not.</p>
+      <label>Sub-area <select id="group-subarea"></select></label>
+      <div id="groups"></div>
+    </div>
+    <div class="card">
+      <h2>Load-bearing standards</h2>
+      <p class="hint">PageRank over what builds on what. The higher the score, the more of the staircase rests on it.</p>
+      <ol id="foundations" class="options compact"></ol>
+    </div>
+    <div class="card">
+      <h2>What the graph remembers</h2>
+      <label>Student <select id="recall-student"></select></label>
+      <div id="recall"></div>
+    </div>
+  </section>
+
+  <!-- ASK -->
+  <section id="ask" class="panel">
+    <div class="card">
+      <h2>Ask the graph</h2>
+      <p class="hint">The model picks from a fixed set of tools and fills in the arguments. It never writes a query, and every name it gives is checked against the graph before anything runs.</p>
+      <form id="ask-form" class="row">
+        <input id="question" placeholder="Where should D-1004 start next in phonics?" autocomplete="off">
+        <button class="primary">Ask</button>
+      </form>
+      <div class="examples" id="examples"></div>
+      <div id="answer"></div>
+    </div>
+  </section>
+
+  <aside class="trace card">
+    <h2>Trace</h2>
+    <p class="hint">Each tool call, its arguments, how long it took, how many rows came back, and which kind of answer it was.</p>
+    <table><thead><tr><th>tool</th><th>arguments</th><th>outcome</th><th>ms</th><th>rows</th></tr></thead>
+      <tbody id="trace"></tbody></table>
+  </aside>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
