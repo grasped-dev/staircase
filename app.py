@@ -6,6 +6,7 @@ Every response carries the trace of tool calls that produced it.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from fastapi import Body, FastAPI, HTTPException, Query
@@ -21,7 +22,14 @@ ROOT = Path(__file__).resolve().parent
 api = FastAPI(title="Staircase", version="0.1.0")
 
 
+# A public deployment sets STAIRCASE_DISTRICTS=demo so visitors cannot create graphs.
+ALLOWED = {d.strip() for d in os.environ.get("STAIRCASE_DISTRICTS", "").split(",") if d.strip()}
+MAX_STUDENTS = int(os.environ.get("STAIRCASE_MAX_STUDENTS", "500"))
+
+
 def tools(district: str) -> Tools:
+    if ALLOWED and district not in ALLOWED:
+        raise HTTPException(404, "No such district on this server.")
     try:
         return Tools(district)
     except ValueError as e:
@@ -48,6 +56,8 @@ def students(district: str = "demo"):
 @api.post("/api/students")
 def add_student(sid: str = Body(...), grade: str = Body(...), district: str = Body("demo")):
     t = tools(district)
+    if t._q("MATCH (s:Student) RETURN count(s)")[0][0] >= MAX_STUDENTS:
+        raise HTTPException(429, "This demo is full. It resets when the server restarts.")
     try:
         return wrap(t, t.add_student(sid, grade))
     except PrivacyError as e:

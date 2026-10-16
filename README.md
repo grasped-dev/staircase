@@ -67,6 +67,12 @@ Each district is its own FalkorDB graph (`staircase:<district>`) in one instance
 
 The demo caseload (`D-1001` to `D-1008`) is invented profiles, made to look exactly like what a real student is in this graph: an ID, a grade and a set of mastered standards.
 
+## Live demo
+
+https://staircase-goals.netlify.app
+
+The page is on Netlify. The API and FalkorDB run together in one Google Cloud Run container (`Dockerfile.cloudrun`), and Netlify forwards `/api` to it. The demo graph is rebuilt from `data/` whenever the container starts, so saved goals do not outlive a restart. The public demo runs without a model: tools are chosen by the keyword router and goal wording comes from the standards themselves.
+
 ## Run it
 
 With Docker:

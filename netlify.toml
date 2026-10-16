@@ -1,0 +1,3 @@
+[build]
+  command = "./build-site.sh"
+  publish = "site"
