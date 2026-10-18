@@ -4,5 +4,5 @@ set -e
 API="${STAIRCASE_API:-https://staircase-rqmoel4gfa-uw.a.run.app}"
 rm -rf site && mkdir -p site/static
 cp static/index.html site/index.html
-cp static/style.css static/app.js site/static/
+cp static/style.css static/app.js static/favicon.svg static/favicon-32.png static/apple-touch-icon.png site/static/
 printf '/api/*  %s/api/:splat  200\n' "$API" > site/_redirects
